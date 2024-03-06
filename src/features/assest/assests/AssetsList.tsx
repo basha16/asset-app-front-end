@@ -81,11 +81,10 @@ const AssestsList = () => {
 
     return (
         <>
-            <Box sx={{ width: '100%', pt: 6 }}>
-                <Paper sx={{ width: '100%', mb: 2 }}>
-                    <Toolbar className="flex justify-evenly">
-                        <div className='flex justify-items-center'>
-
+            <Box className='w-full p-10 '>
+                <Paper>
+                    <Toolbar className="flex justify-evenly flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row space-y-1">
+                        <div className='flex justify-items-center '>
                             <Typography
                                 variant="h6"
                                 id="tableTitle"

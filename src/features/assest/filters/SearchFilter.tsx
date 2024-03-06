@@ -7,7 +7,7 @@ type Props = {
 
 const SearchFilter: FC<Props> = ({ onSearchName }) => {
     return (
-        <div >
+        <div>
             <TextField fullWidth id="outlined-basic" label="Search by name or assignee" variant="outlined" onChange={onSearchName} />
         </div>
     )
