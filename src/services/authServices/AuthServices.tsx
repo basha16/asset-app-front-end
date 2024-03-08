@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseApiUrl = "http://localhost:8081"
+const baseApiUrl = "https://konnectify-assesment-api-4.onrender.com"
 
 class AuthServices  {
     async login(param:any) {
