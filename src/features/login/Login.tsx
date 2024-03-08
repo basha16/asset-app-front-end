@@ -3,10 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -15,7 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { LoginInitialValues, LoginSchema, UserLogin } from './models';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import authServices from '../../services/authServices/AuthServices';
 import { AuthContext } from '../../AuthProvider';
 
@@ -40,15 +36,20 @@ const Login: React.FC = () => {
             response = await authServices.login(values)
             if (response && response?.status === 'success') {
                 setErrorMessage('')
-                const { currentUser } = response
+                const { currentUser, accessToken } = response
                 sessionStorage.clear();
                 sessionStorage.setItem('id', currentUser[0].id)
                 sessionStorage.setItem('email', currentUser[0].email)
                 sessionStorage.setItem('first_name', currentUser[0].first_name)
                 sessionStorage.setItem('last_name', currentUser[0].last_name)
                 sessionStorage.setItem('position', currentUser[0].position)
+                sessionStorage.setItem('accessToken', accessToken)
                 setCurrentUser(currentUser[0].email)
-                navigate('/dashboard');
+                if (currentUser[0].position === 'normal') {
+                    navigate('/assets');
+                } else {
+                    navigate('/dashboard');
+                }
             }
         }
         catch (error) {

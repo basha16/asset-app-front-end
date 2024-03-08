@@ -12,12 +12,13 @@ type Props = {
     open: boolean
     onClose: any
     assetUser: any
+    fetchUserAssets:()=>void
 }
 
-const Assest: FC<Props> = ({ open, onClose, assetUser }) => {
+const Assest: FC<Props> = ({ open, onClose, assetUser,fetchUserAssets }) => {
     const [normalUser, setNormalUser] = useState([])
     const isSubmitting = useSelector(SelectUserIsSubmitting)
-    const dispatch = useDispatch<any>() 
+    const dispatch = useDispatch<any>()
 
     const methods = useForm<AssignAsset>({
         mode: 'onChange',
@@ -45,11 +46,14 @@ const Assest: FC<Props> = ({ open, onClose, assetUser }) => {
             } else {
                 await assetService.createAsset(values)
             }
+            onClose(false, reset)
+            fetchUserAssets()
             dispatch(setIsSubmitting(false))
             dispatch(fetchAssetUsers());
         } catch (error) {
             console.error(error)
         } finally {
+            onClose(false, reset)
             dispatch(setIsSubmitting(false))
         }
     }

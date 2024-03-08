@@ -44,6 +44,7 @@ export const UserRegisterSchema: any = yup.object().shape({
 
             return true;
         }),
-    password: yup.string().required('Please select a position'),
-    confirmPassword: yup.string().required('Team is required')
+    password: yup.string().required('Please enter a password'),
+    confirmPassword: yup.string()
+    .oneOf([yup.ref('password')], 'Passwords must match')
 })

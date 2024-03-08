@@ -33,13 +33,14 @@ const Register: React.FC = () => {
         try {
             const response = await authServices.register(values)
             if (response && response?.status === 'success') {
-                const { currentUser } = response
+                const { currentUser, accessToken } = response
                 sessionStorage.clear();
                 sessionStorage.setItem('id', currentUser[0].id)
                 sessionStorage.setItem('email', currentUser[0].email)
                 sessionStorage.setItem('first_name', currentUser[0].first_name)
                 sessionStorage.setItem('last_name', currentUser[0].last_name)
                 sessionStorage.setItem('position', currentUser[0].position)
+                sessionStorage.setItem('accessToken', accessToken)
                 setCurrentUser(currentUser[0].email)
                 navigate('/dashboard');
             }
@@ -135,7 +136,6 @@ const Register: React.FC = () => {
                                                     {...field}
                                                     required
                                                     fullWidth
-                                                    name="password"
                                                     label="Password"
                                                     type="password"
                                                     id="password"

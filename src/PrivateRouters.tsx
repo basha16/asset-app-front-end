@@ -14,13 +14,14 @@ const PrivateRouters = () => {
             <Route path="*" element={<Navigate to={'/login'} />} />
 
             <Route path="/" element={<PrivateRoute />}>
-                <Route path="/dashboard" element={<DashBoard />} />
+            <Route path="/assets" element={<AssestsList />} />
+
+                <Route path="/dashboard" element={<UserMenus> <DashBoard /></UserMenus>} />
                 <Route path="/users" element={
                     <UserMenus>
                         <UserList />
                     </UserMenus>
                 } />
-                <Route path="/assets" element={<AssestsList />} />
             </Route>
 
 

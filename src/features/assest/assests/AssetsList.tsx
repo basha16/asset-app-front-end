@@ -1,23 +1,16 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import AssestsListItem from './AssetsListItem';
-import { Box, Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Tooltip, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@mui/material';
 import Assest from '../Assest';
 import { ChangeEvent, memo, useEffect, useState } from 'react';
 import assetService from '../../../services/assetUsers/AssetUsers';
 import SearchFilter from '../filters/SearchFilter';
 import StatusFilter from '../filters/StatusFilter';
 import UserMenus from '../../sidebar/UserMenus';
-import { useDispatch, useSelector } from 'react-redux';
-import { SelectAssetUsers, fetchAssetUsers, setUsers } from '../../store/app/assetSlice';
 
 const AssestsList = () => {
     const [userAssets, setUserAssets] = useState([])
-
     const [open, setDialogOpen] = useState(false)
     const [assetUser, setAssetUser] = useState(null)
-    const dispatch = useDispatch<any>()
 
     useEffect(() => {
         const fetch = async () => {
@@ -124,7 +117,7 @@ const AssestsList = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {userAssets && userAssets.map((userAsset: any) => (
+                                {userAssets.length && userAssets.map((userAsset: any) => (
                                     <AssestsListItem key={userAsset.id} userAsset={userAsset} onHandleEdit={handleEditOpen} onHandleDelete={handleDelete} />
                                 ))}
                             </TableBody>
@@ -132,7 +125,7 @@ const AssestsList = () => {
                     </TableContainer>
                 </Paper>
             </Box>
-            {open && <Assest open={open} onClose={handleDialog} assetUser={assetUser} />}
+            {open && <Assest open={open} onClose={handleDialog} assetUser={assetUser} fetchUserAssets={fetchUserAssets}/>}
 
         </>
     )
